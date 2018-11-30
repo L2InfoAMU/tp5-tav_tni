@@ -33,5 +33,20 @@ public class BruteRasterImage implements Image {
         }
     }
 
+    @Override
+    public Color getPixelColor(int x, int y) {
+        return colors[x][y];
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
 
 }
