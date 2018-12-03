@@ -3,7 +3,7 @@ package image;
 import javafx.scene.paint.Color;
 import util.Matrices;
 
-public class PaletteRasterImage implements Image{
+public class PaletteRasterImage extends RasterImage{
     int width;
     int height;
     Color[][] pixels;
