@@ -3,10 +3,14 @@ package image;
 import javafx.scene.paint.Color;
 import util.Matrices;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class PaletteRasterImage extends RasterImage{
     int width;
     int height;
-    Color[][] pixels;
+    List<Color> palette;
+    int[][] indexesOfColors;
 
     public  PaletteRasterImage(Color color, int width, int height){
         this.width = width;
@@ -23,10 +27,8 @@ public class PaletteRasterImage extends RasterImage{
         width = pixels.length;
         height = pixels[0].length;
         createRepresentation();
-        for (int i = 0; i < width; i++){
-            for( int j = 0; j < height; j++){
-                this.pixels[i][j] = pixels[i][j];
-            }
+        setPixelsColors(pixels);
+
         }
 
 
@@ -35,7 +37,7 @@ public class PaletteRasterImage extends RasterImage{
 
     @Override
     public Color getPixelColor(int x, int y) {
-        return pixels[x][y];
+        return palette.get(indexesOfColors[x][y]);
     }
 
     @Override
@@ -48,20 +50,25 @@ public class PaletteRasterImage extends RasterImage{
         return height;
     }
 
-    public void setPixelsColor(Color color, int x, int y){
-        this.pixels[x][y] = color;
+    public void setPixelColor(Color color, int x, int y){
+        if(!palette.contains(color))
+            palette.add(color);
+        indexesOfColors[x][y] = palette.indexOf(color);
     }
 
     public void setPixelsColor(Color color) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++){
-                pixels[i][j] = color;
+                indexesOfColors[i][j] = palette.indexOf(color);
             }
         }
     }
 
     public void setPixelsColors(Color[][] colors) {
-        this.pixels = pixels.clone();
+        for (int i = 0; i < width; i++){
+            for( int j = 0; j < height; j++){
+                setPixelColor(colors[i][j], i, j);
+            }
     }
 
     public void setWidth(int width) {
@@ -73,6 +80,7 @@ public class PaletteRasterImage extends RasterImage{
     }
 
     public void createRepresentation() {
-        pixels = new Color[getWidth()][getHeight()];
+        indexesOfColors = new int[getWidth()][getHeight()];
+        palette = new LinkedList<>();
     }
 }
