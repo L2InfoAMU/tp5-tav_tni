@@ -22,7 +22,7 @@ public class PaletteRasterImage implements Image{
         Matrices.requiresRectangularMatrix(pixels);
         width = pixels.length;
         height = pixels[0].length;
-
+        createRepresentation();
         for (int i = 0; i < width; i++){
             for( int j = 0; j < height; j++){
                 this.pixels[i][j] = pixels[i][j];
