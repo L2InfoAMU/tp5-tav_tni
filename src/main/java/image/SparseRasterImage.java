@@ -6,7 +6,6 @@ public class SparseRasterImage extends RasterImage{
 
     int width;
     int height;
-    map<k,v>;
 
     public SparseRasterImage(Color color , int width, int height) {
 
@@ -61,4 +60,3 @@ public class SparseRasterImage extends RasterImage{
     }
 }
 
-}

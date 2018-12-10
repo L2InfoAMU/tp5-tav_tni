@@ -32,9 +32,6 @@ public class PaletteRasterImage extends RasterImage{
         }
 
 
-    }
-
-
     @Override
     public Color getPixelColor(int x, int y) {
         return palette.get(indexesOfColors[x][y]);
@@ -57,6 +54,8 @@ public class PaletteRasterImage extends RasterImage{
     }
 
     public void setPixelsColor(Color color) {
+        if(!palette.contains(color))
+            palette.add(color);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++){
                 indexesOfColors[i][j] = palette.indexOf(color);
@@ -65,10 +64,11 @@ public class PaletteRasterImage extends RasterImage{
     }
 
     public void setPixelsColors(Color[][] colors) {
-        for (int i = 0; i < width; i++){
-            for( int j = 0; j < height; j++){
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 setPixelColor(colors[i][j], i, j);
             }
+        }
     }
 
     public void setWidth(int width) {
