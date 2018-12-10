@@ -7,16 +7,21 @@ public class VectorImage implements Image {
     int width;
     int height;
 
-  public  VectorImage(List<Shape> shapes, int width, int height){
-      this.width = width;
-      this.height = height;
-      this.shapes = shapes;
-
-
+    public  VectorImage(List<Shape> shapes, int width, int height){
+        this.width = width;
+        this.height = height;
+        this.shapes = shapes;
     }
 
     public Color getPixelColor(int x, int y){
-                return shapes.get(shapes.indexOf(new Point(x, y))).getColor();
+        System.out.println(shapes.size());
+        for (int i = 0; i < shapes.size(); i++){
+            if (shapes.get(i).contains(new Point(x,y))) {
+                System.out.println("HA");
+                return shapes.get(i).getColor();
+            }
+        }
+        return Color.WHITE;
     }
 
     public int getWidth(){
