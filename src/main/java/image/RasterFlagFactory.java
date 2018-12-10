@@ -30,8 +30,8 @@ public class RasterFlagFactory implements ImageFactory {
             }
         }
         switch (rasterImageType){
-            case PALETTE:
-                return new PaletteRasterImage(pixels);
+            case SPARSE:
+                return new SparseRasterImage(pixels);
             default:
                 throw new NotSupportedException(rasterImageType + " is not supported");
         }

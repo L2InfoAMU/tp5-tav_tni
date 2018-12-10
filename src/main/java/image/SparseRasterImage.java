@@ -5,12 +5,12 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 
 public class SparseRasterImage extends RasterImage{
-    HashMap<Point, Color> maps = new HashMap<Point, Color>();
-    int width;
-    int height;
+    HashMap<Point, Color> maps;
+
 
     public SparseRasterImage(Color color , int width, int height) {
         super(width,height);
+        createRepresentation();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++){
                 maps.put(new Point(i,j),color );
@@ -19,42 +19,44 @@ public class SparseRasterImage extends RasterImage{
     }
 
     public SparseRasterImage(Color[][] pixels) {
-
+        super(pixels.length, pixels[0].length);
+        createRepresentation();
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++){
+                maps.put(new Point(i,j),pixels[i][j]);
+            }
+        }
     }
 
 
     @Override
     public Color getPixelColor(int x, int y) {
-        return colors[x][y];
+        return maps.getOrDefault(new Point(x,y), Color.BLACK);
     }
 
 
     public void setPixelsColor(Color color, int x, int y){
-        this.colors[x][y] = color;
+        maps.put(new Point(x,y),color);
     }
 
     public void setPixelsColor(Color color) {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++){
-                colors[i][j] = color;
+                maps.put(new Point(i,j),color);
             }
         }
     }
 
     public void setPixelsColors(Color[][] colors) {
-        this.colors = colors.clone();
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++){
+                maps.put(new Point(i,j),colors[i][j]);
+            }
+        }
     }
 
     public void createRepresentation() {
-        colors = new Color[getWidth()][getHeight()];
+        maps = new HashMap<Point, Color>();
     }
 }
 
