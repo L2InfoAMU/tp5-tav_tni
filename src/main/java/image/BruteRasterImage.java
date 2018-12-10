@@ -9,6 +9,7 @@ public class BruteRasterImage extends RasterImage {
 
 
     public BruteRasterImage(Color color, int width, int height) {
+        super(width,height);
         this.width = width;
         this.height = height;
         createRepresentation();
@@ -16,6 +17,7 @@ public class BruteRasterImage extends RasterImage {
     }
 
     public BruteRasterImage(Color [][] colors){
+        super(colors.length,colors[0].length);
         Matrices.requiresNonZeroDimensions(colors);
         Matrices.requiresRectangularMatrix(colors);
         width = colors.length;
@@ -33,15 +35,7 @@ public class BruteRasterImage extends RasterImage {
         return colors[x][y];
     }
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
 
-    @Override
-    public int getHeight() {
-        return height;
-    }
 
     public void setPixelsColor(Color color, int x, int y){
         this.colors[x][y] = color;
@@ -59,13 +53,6 @@ public class BruteRasterImage extends RasterImage {
         this.colors = colors.clone();
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public void createRepresentation() {
         colors = new Color[getWidth()][getHeight()];

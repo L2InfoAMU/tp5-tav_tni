@@ -2,13 +2,20 @@ package image;
 
 import javafx.scene.paint.Color;
 
-public class SparseRasterImage extends RasterImage{
+import java.util.HashMap;
 
+public class SparseRasterImage extends RasterImage{
+    HashMap<Point, Color> maps = new HashMap<Point, Color>();
     int width;
     int height;
 
     public SparseRasterImage(Color color , int width, int height) {
-
+        super(width,height);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++){
+                maps.put(new Point(i,j),color );
+            }
+        }
     }
 
     public SparseRasterImage(Color[][] pixels) {
@@ -21,15 +28,6 @@ public class SparseRasterImage extends RasterImage{
         return colors[x][y];
     }
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
 
     public void setPixelsColor(Color color, int x, int y){
         this.colors[x][y] = color;

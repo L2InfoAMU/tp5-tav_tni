@@ -13,6 +13,7 @@ public class PaletteRasterImage extends RasterImage{
     int[][] indexesOfColors;
 
     public  PaletteRasterImage(Color color, int width, int height){
+        super(width, height);
         this.width = width;
         this.height = height;
         createRepresentation();
@@ -22,6 +23,7 @@ public class PaletteRasterImage extends RasterImage{
 
 
     public PaletteRasterImage(Color[][] pixels) {
+        super(pixels.length, pixels[0].length);
         Matrices.requiresNonZeroDimensions(pixels);
         Matrices.requiresRectangularMatrix(pixels);
         width = pixels.length;
@@ -37,15 +39,6 @@ public class PaletteRasterImage extends RasterImage{
         return palette.get(indexesOfColors[x][y]);
     }
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
 
     public void setPixelColor(Color color, int x, int y){
         if(!palette.contains(color))
@@ -71,13 +64,6 @@ public class PaletteRasterImage extends RasterImage{
         }
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public void createRepresentation() {
         indexesOfColors = new int[getWidth()][getHeight()];
